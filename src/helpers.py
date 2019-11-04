@@ -12,7 +12,7 @@ def get_syntax(view):
     return syntax
 
 def get_scopes(syntax):
-    return syntax_scopes.get('base', []) + syntax_scopes.get(syntax, [])
+    return state['syntax_scopes'].get('base', []) + state['syntax_scopes'].get(syntax, [])
 
 def get_region_string(region, line = False):
     v = sublime.active_window().active_view()

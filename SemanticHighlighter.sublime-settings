@@ -1,4 +1,5 @@
 {
+    "style": "underline",
     "scopes": {
         "base": [
             "variable.other",

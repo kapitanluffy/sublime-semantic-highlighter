@@ -12,97 +12,135 @@ from ..scope_analyzer import ScopeAnalyzer
 class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
     scopes = []
     locked = False
-    highlighted = None
+    highlighted = {}
     locked_highlighted = {}
     style = None
-    key = None
-    state = {}
+    key = 'plugin.semantic_highlighter'
+    state = None
     symbols = {}
     scope_analyzer = None
+    current_selection = set()
 
-    def run(self, edit, **kwargs):
-        self.locked = kwargs.get('locked')
-
+    def get_scopes(self):
         syntax = get_syntax(self.view)
         scopes = get_scopes(syntax)
-        self.scopes = ",".join(scopes)
-        self.key = 'plugin.semantic_highlighter'
+        return ",".join(scopes)
 
-        styles = {
-            'outline': sublime.DRAW_NO_FILL,
-            'fill': sublime.DRAW_NO_OUTLINE,
-            'underline': sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
-        }
-        self.style = styles['underline']
-
-        selection = self.view.sel()
-        point = kwargs.get('point')
-        if (point != None):
-            selection.clear()
-            selection.add(point)
-
-        self.scope_analyzer = ScopeAnalyzer()
+    def get_words(self, selection):
+        words = set()
 
         for region in selection:
             # ignore text selections
             if (region.size() > 0):
                 continue
 
-            highlighted = self.handle_region(region)
+            word = self.get_word(region)
+            words.add(word)
 
-            if (highlighted == False):
+        return words
+
+    def run(self, edit, **kwargs):
+        global state
+        self.locked = kwargs.get('locked')
+        self.scopes = self.get_scopes()
+        self.style = state['style']
+
+        if self.state == None:
+            self.state = state
+
+        # only use last selection region
+        selection = self.view.sel()
+        selection = [selection[-1]]
+
+        # words = self.get_words(selection)
+        # current_highlighted_words = set(self.state['current_highlight'].keys())
+
+        # if current_highlighted_words == words:
+        #     print(current_highlighted_words, words)
+        #     return False
+
+        point = kwargs.get('point')
+        if (point != None):
+            selection.clear()
+            selection.add(point)
+
+        self.scope_analyzer = ScopeAnalyzer()
+        # words = set()
+
+        for region in selection:
+            # ignore text selections
+            if (region.size() > 0):
+                continue
+
+            target_word = self.get_word(region)
+            highlights = self.handle_region(target_word)
+
+            if (highlights == False):
                 continue
 
             # if (self.locked == True):
-            #     self.locked_highlighted[highlighted['word']] = highlighted
+            #     self.locked_highlighted[highlights['word']] = highlights
             #     continue
 
-            # highlighted.highlight(lock)
-            # highlighted.unhighlight()
+            # self.current_selection.add(target_word)
+            self.state['current_highlight'][target_word] = highlights
 
-            self.highlighted = highlighted
-            self.state['current_highlight'] = highlighted
+            for k,h in highlights.items():
+                self.highlight(h['key'], h['regions'], h['color'])
+
 
         return True
 
-    def handle_region(self, region):
-        color = randrange(0, 144)
-        target = self.get_word(region)
-        key = self.key
+    def handle_region(self, target):
+        # skip if target is in the highlighted
+        if (target in self.state['current_highlight'] and self.locked != True):
+            return False
+
+        # clear higlighted regions
+        self.unhighlight(target)
 
         # skip if not a valid "word", clear highlight if exists
         if (target == False):
-            if (self.highlighted != None):
-                self.unhighlight(self.highlighted)
-                self.highlighted = None
             return False
 
-        # skip if target is equal to the highlighted
-        if (self.highlighted != None):
-            if (target == self.highlighted['word'] and self.locked != True):
-                return False
+        # if (self.locked == True):
+        #     key = "%s.%s" % (key, target)
 
-        if (self.locked == True):
-            key = "%s.%s" % (key, target)
+        key = self.key
+        regions = self.get_target_instances(target)
+        highlights = {}
+        symbol_regions = {}
+        symbols = {}
 
-        instances = self.get_target_instances(target)
-        regions = [region] + instances
+        for r in regions:
+            region_scope = self.scope_analyzer.analyze(self.view, r)
+            region_scope_name = "Global"
+            region_scope_region = self.view.substr(self.view.line(r))
 
-        # for r in regions:
-        #     region_scope = self.scope_analyzer.analyze(self.view, region)
-        #     region_scope_name = self.view.substr(self.view.word(region_scope))
-        #     symbol_key = "%s.%s" % (region_scope_name, target)
+            if (region_scope != None):
+                region_scope_region = self.view.substr(self.view.line(region_scope))
+                region_scope_name = self.view.substr(self.view.word(region_scope))
 
-        #     if symbol_key in self.symbols:
-        #         color = self.symbols[symbols]
+            symbol_key = "%s.%s.%s" % (key, region_scope_name, target)
 
-        #     if symbol_key in self.symbols == False:
-        #         self.symbols[symbols] = color
+            if symbol_key in symbols:
+                color = symbols[symbol_key]
 
-        self.highlight(key, regions, color)
-        highlighted = { "word": target, "key": key, "color": color, "locked": self.locked, "active": True, "regions": regions }
+            if symbol_key not in symbols:
+                color = randrange(0, 144)
+                symbols[symbol_key] = color
 
-        return highlighted
+            if symbol_key in symbol_regions:
+                symbol_regions[symbol_key].append(r)
+
+            if symbol_key not in symbol_regions:
+                symbol_regions[symbol_key] = []
+                symbol_regions[symbol_key].append(r)
+
+            # print(r, "%s -> %s [%s]" % (region_scope_name, target, region_scope_region))
+            highlights[symbol_key] = { "word": target, "key": symbol_key, "color": color, "locked": self.locked, "active": True, "regions": symbol_regions[symbol_key] }
+
+        return highlights
 
     def get_target_instances(self, target):
         instances = self.view.find_all(target, sublime.LITERAL)
@@ -139,8 +177,31 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
         midpoint = (point.a + point.b) / 2
         return self.view.match_selector(midpoint, scopes)
 
-    def unhighlight(self, word):
-        self.view.erase_regions(word['key'])
+    def unhighlight(self, target):
+        deletables = set()
+
+        # highlight_keys = list(self.state['current_highlight'])
+        # for k in highlight_keys:
+        #     if target == k:
+        #         continue
+
+        #     highlights = self.state['current_highlight'].pop(k)
+
+        #     for wk,highlight in highlights.items():
+        #         self.view.erase_regions(highlight['key'])
+
+        for word,highlights in self.state['current_highlight'].items():
+            if target == word:
+                continue
+            deletables.add(word)
+
+            for key in highlights:
+                highlight = highlights[key]
+                # self.current_selection.remove(highlight['word'])
+                self.view.erase_regions(highlight['key'])
+
+        for word in deletables:
+            del self.state['current_highlight'][word]
 
     def highlight(self, key, regions, color):
         self.view.add_regions(key, regions, 'plugin.semantic_highlighter.color' + str(color) , '', self.style)

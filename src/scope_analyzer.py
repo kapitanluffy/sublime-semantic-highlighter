@@ -15,14 +15,14 @@ class ScopeAnalyzer():
         self.view = view
 
         if block == 'meta.function':
-            region_scope = self.get_token_via_scope(region, "meta.function entity.name.function")
+            if view.match_selector(region.a, "variable.other.member"):
+                region_scope = self.get_token_via_scope(region, "meta.class entity.name.class")
+            else:
+                region_scope = self.get_token_via_scope(region, "meta.function entity.name.function")
 
         if block == 'meta.class':
             region_scope = self.get_token_via_scope(region, "meta.class entity.name.class")
 
-        # scope = self.view.scope_name(region_scope.a)
-        # region_scope_name = self.view.substr(self.view.word(region_scope))
-        # print(region_scope, "\"%s\"" % region_scope_name, scope)
         return region_scope
 
     def get_token_via_scope(self, region, scope):
