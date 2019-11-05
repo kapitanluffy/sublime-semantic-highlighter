@@ -1,0 +1,24 @@
+[
+    {
+        "keys": ["ctrl+shift+l"],
+        "command": "semantic_highlighter_jump",
+        "context": [
+            {
+                "key": "semantic_highlighter",
+                "operator": "equal",
+                "operand": true
+            }
+        ]
+    },
+    {
+        "keys": ["ctrl+shift+e"],
+        "command": "semantic_highlighter_edit",
+        "context": [
+            {
+                "key": "semantic_highlighter",
+                "operator": "equal",
+                "operand": true
+            }
+        ]
+    }
+]

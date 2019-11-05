@@ -86,8 +86,8 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
             self.state['current_highlight'][target_word] = highlights
 
             for k,h in highlights.items():
+                # self.view.sel().add_all(h['regions'])
                 self.highlight(h['key'], h['regions'], h['color'])
-
 
         return True
 
@@ -114,7 +114,7 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
 
         for r in regions:
             region_scope = self.scope_analyzer.analyze(self.view, r)
-            region_scope_name = "Global"
+            region_scope_name = "_global_"
             region_scope_region = self.view.substr(self.view.line(r))
 
             if (region_scope != None):
@@ -138,7 +138,15 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
                 symbol_regions[symbol_key].append(r)
 
             # print(r, "%s -> %s [%s]" % (region_scope_name, target, region_scope_region))
-            highlights[symbol_key] = { "word": target, "key": symbol_key, "color": color, "locked": self.locked, "active": True, "regions": symbol_regions[symbol_key] }
+            highlights[symbol_key] = {
+                "word": target,
+                "key": symbol_key,
+                "color": color,
+                "locked": self.locked,
+                "active": True,
+                "regions": symbol_regions[symbol_key],
+                "scope": region_scope
+            }
 
         return highlights
 

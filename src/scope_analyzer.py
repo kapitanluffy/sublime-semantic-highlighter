@@ -1,7 +1,7 @@
 import sublime
 from .state import *
 
-class ScopeAnalyzer():
+class ScopeAnalyzer:
     view = None
 
     def analyze(self, view, region):
