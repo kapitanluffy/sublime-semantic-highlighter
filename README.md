@@ -36,6 +36,14 @@ Sure. Here are suggestions for you though.
 - Improve understanding of your co-worker's gibberish code 😒
 - Easily see where that variable has been hiding 👀
 
+#### Commands
+
+- `semantic_highlighter_jump` (`ctrl+shift+l`)
+Jump to the next variable in scope
+
+- `semantic_highlighter_edit` (`ctrl+shift+e`)
+Edit all the similar variables in scope
+
 ##### The color-scheme file
 
 The package comes with a customizable template color scheme that has 144 varying HSL representations. For now, I simply fetch a random number and match it.
