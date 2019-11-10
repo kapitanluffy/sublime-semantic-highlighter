@@ -62,6 +62,10 @@ To understand how "scopes" work, check out the following links:
 - [Scope Naming](https://www.sublimetext.com/docs/3/scope_naming.html).
 - [Selectors](https://www.sublimetext.com/docs/3/selectors.html)
 
+##### Support
+
+You can always support me via [Patreon](https://www.patreon.com/kapitanluffy)
+
 ##### License
 
 [MIT](LICENSE)
