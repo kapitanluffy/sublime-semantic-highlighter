@@ -38,10 +38,10 @@ Sure. Here are suggestions for you though.
 
 #### Commands
 
-- `semantic_highlighter_jump` (`ctrl+shift+l`)
+- `semantic_highlighter_jump` (`ctrl+l`, `ctrl+j`)
 Jump to the next variable in scope
 
-- `semantic_highlighter_edit` (`ctrl+shift+e`)
+- `semantic_highlighter_edit` (`ctrl+l`, `ctrl+e`)
 Edit all the similar variables in scope
 
 ##### The color-scheme file

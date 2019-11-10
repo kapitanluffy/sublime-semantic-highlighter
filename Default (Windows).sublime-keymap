@@ -1,6 +1,6 @@
 [
     {
-        "keys": ["ctrl+shift+l"],
+        "keys": ["ctrl+l", "ctrl+j"],
         "command": "semantic_highlighter_jump",
         "context": [
             {
@@ -11,7 +11,7 @@
         ]
     },
     {
-        "keys": ["ctrl+shift+e"],
+        "keys": ["ctrl+l", "ctrl+e"],
         "command": "semantic_highlighter_edit",
         "context": [
             {
