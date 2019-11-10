@@ -15,7 +15,7 @@ class ScopeAnalyzer:
         self.view = view
 
         if block == 'meta.function':
-            if view.match_selector(region.a, "variable.other.member"):
+            if view.match_selector(region.a, "variable.other.member | variable.other.class | constant.other.class"):
                 region_scope = self.get_token_via_scope(region, "meta.class entity.name.class")
             else:
                 region_scope = self.get_token_via_scope(region, "meta.function entity.name.function")
