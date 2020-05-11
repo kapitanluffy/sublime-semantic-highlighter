@@ -1,13 +1,12 @@
 import sublime
 import sublime_plugin
-
 from random import randrange
 import inspect
 import re
-
 from ..state import *
 from ..helpers import *
 from ..scope_analyzer import ScopeAnalyzer
+
 
 class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
     scopes = []
@@ -59,6 +58,7 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
         #     print(current_highlighted_words, words)
         #     return False
 
+        # ignore current selection and use provided point
         point = kwargs.get('point')
         if (point != None):
             selection.clear()
@@ -85,6 +85,7 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
             # self.current_selection.add(target_word)
             self.state['current_highlight'][target_word] = highlights
 
+            # highlight all the items!
             for k,h in highlights.items():
                 # self.view.sel().add_all(h['regions'])
                 self.highlight(h['key'], h['regions'], h['color'])
@@ -123,16 +124,20 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
 
             symbol_key = "%s.%s.%s" % (key, region_scope_name, target)
 
+            # get existing color if symbol_key is in symbols
             if symbol_key in symbols:
                 color = symbols[symbol_key]
 
+            # generate a random color for new symbol_key
             if symbol_key not in symbols:
                 color = randrange(0, 144)
                 symbols[symbol_key] = color
 
+            # append symbol_key to existing symbol_region
             if symbol_key in symbol_regions:
                 symbol_regions[symbol_key].append(r)
 
+            # create a new symbol_region for new symbol-key
             if symbol_key not in symbol_regions:
                 symbol_regions[symbol_key] = []
                 symbol_regions[symbol_key].append(r)
@@ -165,6 +170,9 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
         return regions
 
     def get_word(self, region):
+        """
+         get the word under the cursor
+        """
         region = self.view.word(region)
 
         if (region.empty()):
@@ -181,6 +189,13 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
         return word
 
     def is_scope_match(self, point, scopes):
+        """
+         check if the point matches the provided scopes
+
+         we get the middle of a point because sublime scopes gets weird
+         when the cursor is at the beginning/end of a word
+        """
+
         # p = self.view.text_point(w.a, w.b)
         midpoint = (point.a + point.b) / 2
         return self.view.match_selector(midpoint, scopes)

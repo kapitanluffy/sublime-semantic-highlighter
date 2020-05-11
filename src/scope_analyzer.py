@@ -7,11 +7,13 @@ class ScopeAnalyzer:
     def analyze(self, view, region):
         matching_blocks = ['meta.function', 'meta.class']
 
+        # analyze if scope is a function or class
         for scope in matching_blocks:
             if view.match_selector(region.a, scope) == True:
                 return self.get_region_scope(view, region, scope)
 
     def get_region_scope(self, view, region, block):
+        # determine the scope of the cursor position
         self.view = view
 
         if block == 'meta.function':
@@ -48,30 +50,33 @@ class ScopeAnalyzer:
 
             bofmax = bofmax - 1
             if (bofmax <= 0):
-                print("get_token_via_scope() buffer overflow? break!")
-                break
+                raise Exception("get_token_via_scope() buffer overflow? break!")
 
         return match
 
     def tokenize_line(self, line):
+        # create tokens from the line
         current_size = 0
-        start_point = line.a
+        start_point = line.a    # start from the beginning of the line
         tokens = []
         bofmax = 100000
 
         while (line.size() > 0):
+            # get the word based from the starting point
             word = self.view.word(sublime.Region(start_point, start_point))
-            current_size = current_size + word.size()
 
+            # return all tokens if total size is longer than the line
+            current_size = current_size + word.size()
             if current_size > line.size():
                 break
 
             tokens.append(word)
+
+            # start to the next character after last word
             start_point = word.b + 1
 
             bofmax = bofmax - 1
             if (bofmax <= 0):
-                print("tokenize_line() buffer overflow? break!")
-                break
+                raise Exception("get_token_via_scope() buffer overflow? break!")
 
         return tokens
