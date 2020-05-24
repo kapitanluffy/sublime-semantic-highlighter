@@ -1,14 +1,3 @@
 {
     "style": "underline",
-    "scopes": {
-        "base": [
-            "variable.other",
-            "constant.other",
-            "variable.parameter",
-            "meta.function.parameters",
-        ],
-        "python": [
-            "(meta.generic-name - (meta.class, meta.function, variable.function))"
-        ]
-    }
 }

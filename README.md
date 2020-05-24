@@ -15,8 +15,7 @@ Sure. Here are suggestions for you though.
 
 ##### Installation
 
-1. Install from `packagecontrol.io` or unpack the [zip](https://github.com/kapitanluffy/sublime-semantic-highlighter/archive/master.zip) in your packages directory
-2. Create a copy of `Template.sublime-color-scheme.json` and name it to  `YourColorScheme.sublime-color-scheme`
+- Install from `packagecontrol.io` or unpack the [zip](https://github.com/kapitanluffy/sublime-semantic-highlighter/archive/master.zip) in your packages directory
 
 ##### Usage
 
@@ -46,21 +45,30 @@ Edit all the similar variables in scope
 
 ##### The color-scheme file
 
-The package comes with a customizable template color scheme that has 144 varying HSL representations. For now, I simply fetch a random number and match it.
+The package comes with a customizable template color scheme that has 144 varying HSL representations.
+For now, I simply fetch a random number and match it.
 
-##### Improving the highlighting feature
+##### Creating a custom analyzer
 
-Edit the `scopes` in the settings file.
+The plugin will highlight symbols based on an analyzer. Since I cannot do every programming language,
+you can further improve *variable detection* by creating your own language analyzer.
 
-The plugin will highlight scopes that are considered "variables" (using the `base` scope by default). Editing the `base` scope will probably break things but it's up to you.
+For a quick intro, the *analyzer* class has a `getBlockScope` method that should return one of the following:
 
-Since I cannot do every programming language, you can further improve *variable detection* by creating your own custom scope of your desired syntax.
-And if you do, do a PR for it. The world needs you.
+- A scope name string of the block the symbol belongs to
+- `None` if the selection is a valid symbol but does not belong to any blocks (i.e. global variable)
+- `False` if the selection is not a valid symbol
 
 To understand how "scopes" work, check out the following links:
 
 - [Scope Naming](https://www.sublimetext.com/docs/3/scope_naming.html).
 - [Selectors](https://www.sublimetext.com/docs/3/selectors.html)
+
+##### Included analyzers
+
+- A generic *fallback* analyzer
+- Python
+- PHP
 
 ##### Support
 

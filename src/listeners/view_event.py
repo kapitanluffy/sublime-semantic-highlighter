@@ -1,7 +1,4 @@
-import sublime
 import sublime_plugin
-from ..state import *
-from ..helpers import *
 
 
 class SemanticHighlighterViewEventListener(sublime_plugin.ViewEventListener):
