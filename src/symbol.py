@@ -19,7 +19,7 @@ class Symbol():
         block = self.getBlock()
 
         if block is False:
-            raise Exception("Invalid symbol")
+            return False
 
         target = self.getWord()
         view = self.view.id()

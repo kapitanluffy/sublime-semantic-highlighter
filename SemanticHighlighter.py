@@ -1,6 +1,5 @@
 import sublime
 import os
-from shutil import copyfile
 from .src.commands.highlight import SemanticHighlighterHighlightCommand
 from .src.commands.edit import SemanticHighlighterEditCommand
 from .src.commands.jump import SemanticHighlighterJumpCommand

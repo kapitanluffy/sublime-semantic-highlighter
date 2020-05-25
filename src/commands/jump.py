@@ -11,6 +11,9 @@ class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
         symbol = Symbol(self.view, selection)
         key = symbol.getKey()
 
+        if key is False:
+            return False
+
         current = next(filter(lambda s : s.getRegion() == symbol.getRegion(), highlighter.collection[key]))
         index = highlighter.collection[key].index(current) + 1
 

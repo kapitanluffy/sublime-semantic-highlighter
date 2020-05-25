@@ -25,6 +25,9 @@ class Highlighter():
 
             key = s.getKey()
 
+            if key is False:
+                continue
+
             if key not in blocks:
                 blocks[key] = []
 

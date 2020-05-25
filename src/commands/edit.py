@@ -11,6 +11,9 @@ class SemanticHighlighterEditCommand(sublime_plugin.TextCommand):
         symbol = Symbol(self.view, selection)
         key = symbol.getKey()
 
+        if key is False:
+            return False
+
         for index, symbol in enumerate(highlighter.collection[key]):
             self.view.sel().add_all([symbol.getRegion()])
 
