@@ -61,6 +61,6 @@ class PhpAnalyzer(BlockAnalyzer):
             return self.getClassScope()
 
         if super().matches(region, 'variable.other | constant.other'):
-            return self.getGenericScope()
+            return None
 
         return False

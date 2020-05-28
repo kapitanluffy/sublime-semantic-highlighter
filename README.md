@@ -1,6 +1,6 @@
 #### Semantic Highlighter
 
-Highlights similar variables on focus
+🌈 Highlights similar variables on focus
 
 It underlines variables with the same string (for now).
 Sublime does this by double-clicking a word but why do two if you can do one!

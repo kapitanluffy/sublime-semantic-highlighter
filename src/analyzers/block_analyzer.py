@@ -28,10 +28,6 @@ class BlockAnalyzer():
         if block is None:
             return sublime.Region(0, 0)
 
-        # should I really do this though?
-        if block is not None:
-            self.view.unfold(block)
-
         return block
 
     def analyze(self, region, scope):
