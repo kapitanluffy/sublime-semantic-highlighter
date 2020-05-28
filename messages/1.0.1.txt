@@ -1,0 +1,16 @@
+🌈 Semantic Highlighter 1.0.1
+
+For issues and feedback:
+https://github.com/kapitanluffy/sublime-semantic-highlighter/issues
+
+Help us create an analyzer for your language!
+https://github.com/kapitanluffy/sublime-semantic-highlighter#creating-a-custom-analyzer
+
+Support us here:
+https://www.patreon.com/kapitanluffy
+
+Bugfixes:
+- Remove test feature unfolding hidden block scopes
+
+Others:
+- Add a cute rainbow emoji in the package description
