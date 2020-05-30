@@ -20,7 +20,7 @@ def update_preferences():
     Watch for color_scheme changes
     """
     preferences = sublime.load_settings('Preferences.sublime-settings')
-    plugindir = os.path.join(sublime.packages_path(), 'SemanticHighlighter')
+    plugindir = os.path.join(sublime.packages_path(), 'Semantic Highlighter')
 
     if not os.path.exists(plugindir):
         os.mkdir(plugindir)
@@ -35,8 +35,9 @@ def update_preferences():
     if os.path.exists(scheme):
         return
 
-    template = sublime.load_resource('Packages/SemanticHighlighter/Template.sublime-color-scheme.json')
-    file = open(scheme, "w+")
+    filename, fileext = os.path.splitext(scheme);
+    template = sublime.load_resource('Packages/Semantic Highlighter/Template.sublime-color-scheme.json')
+    file = open("%s.sublime-color-scheme" % filename, "w+")
     file.write(template)
     file.close()
 
