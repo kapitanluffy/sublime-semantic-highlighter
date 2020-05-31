@@ -13,6 +13,23 @@ Sure. Here are suggestions for you though.
 - Modify your color scheme file using Sublime's "[Hashed Syntax Highlighting](https://www.sublimetext.com/docs/3/color_schemes.html#hashed_syntax_highlighting)"
 - use VS Code
 
+<p align="center">
+<a href="https://www.sublimetext.com/">
+    <img src="https://img.shields.io/badge/Made%20For-Sublime-ff9800?logo=sublime%20text" /></a>
+
+<a href="https://packagecontrol.io/packages/Semantic%20Highlighter">
+    <img src="https://img.shields.io/packagecontrol/dt/Semantic%20Highlighter" /></a>
+
+<a href="https://github.com/kapitanluffy/sublime-semantic-highlighter/releases">
+    <img src="https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release" /></a>
+
+<a href="https://patreon.com/kapitanluffy">
+    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy" /></a>
+
+<a href="https://ko-fi.com/kapitanluffy)">
+    <img src="https://img.shields.io/badge/Ko--fi-Support-019cde?logo=ko-fi" /></a>
+</p>
+
 ##### Installation
 
 - Install from `packagecontrol.io` or unpack the [zip](https://github.com/kapitanluffy/sublime-semantic-highlighter/archive/master.zip) in your packages directory
@@ -72,7 +89,7 @@ To understand how "scopes" work, check out the following links:
 
 ##### Support
 
-You can always support me via [Patreon](https://www.patreon.com/kapitanluffy)
+You can always support me via [Patreon](https://www.patreon.com/kapitanluffy) or [Ko-fi](https://www.ko-fi.com/kapitanluffy)
 
 ##### License
 

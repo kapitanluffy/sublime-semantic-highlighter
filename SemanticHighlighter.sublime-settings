@@ -1,3 +1,4 @@
 {
+    // Valid values are: underline, outline, fill
     "style": "underline",
 }

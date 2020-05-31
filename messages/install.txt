@@ -1,0 +1,27 @@
+🌈 Semantic Highlighter
+
+How To Use:
+- Jump to the next variable in scope (`ctrl+l`, `ctrl+j`)
+- Edit all the similar variables in scope (`ctrl+l`, `ctrl+e`)
+
+For issues and feedback:
+https://github.com/kapitanluffy/sublime-semantic-highlighter/issues
+
+Help us create an analyzer for your language!
+https://github.com/kapitanluffy/sublime-semantic-highlighter#creating-a-custom-analyzer
+
+Support us here:
+- https://patreon.com/kapitanluffy
+- https://ko-fi.com/kapitanluffy
+
+
+v1.0.2
+    Bugfixes:
+    - Fix cannot load template resource
+    - Fix cannot create highlighter theme from tmtheme files
+
+v1.0.1
+    Bugfixes:
+    - Remove test feature unfolding hidden block scopes
+    Others:
+    - Add a cute rainbow emoji in the package description
