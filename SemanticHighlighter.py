@@ -1,5 +1,6 @@
 import sublime
 import os
+import re
 from .src.commands.highlight import SemanticHighlighterHighlightCommand
 from .src.commands.edit import SemanticHighlighterEditCommand
 from .src.commands.jump import SemanticHighlighterJumpCommand
@@ -30,14 +31,20 @@ def update_preferences():
     if scheme[-1] == preferences.get('color_scheme'):
         scheme = preferences.get('color_scheme').split('/')
 
-    scheme = os.path.join(plugindir, scheme[-1])
+    filename, fileext = os.path.splitext(scheme[-1]);
+    filename = os.path.join(plugindir, filename)
+    filename = "%s.sublime-color-scheme" % filename
 
-    if os.path.exists(scheme):
+    if os.path.exists(filename):
         return
 
-    filename, fileext = os.path.splitext(scheme);
-    template = sublime.load_resource('Packages/Semantic Highlighter/Template.sublime-color-scheme.json')
-    file = open("%s.sublime-color-scheme" % filename, "w+")
+    for colorScheme in sublime.find_resources('*.sublime-color-scheme'):
+        match = re.match('Packages/Semantic Highlighter/(.+\.sublime-color-scheme)', colorScheme)
+        if match is not None:
+            os.remove(os.path.join(plugindir, match.group(1)))
+
+    template = sublime.load_resource('Packages/Semantic Highlighter/Template.hidden-color-scheme')
+    file = open(filename, "w+")
     file.write(template)
     file.close()
 

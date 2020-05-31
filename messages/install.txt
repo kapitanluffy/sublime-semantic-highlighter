@@ -15,6 +15,10 @@ Support us here:
 - https://ko-fi.com/kapitanluffy
 
 
+v1.0.3
+    Changes:
+    - Remove previous color schemes
+
 v1.0.2
     Bugfixes:
     - Fix cannot load template resource
