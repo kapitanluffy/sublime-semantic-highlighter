@@ -2,6 +2,16 @@
 
 🌈 Highlights similar variables on focus
 
+[![Sublime Text](http://img.shields.io/badge/Made%20for-Sublime%20Text-ff9800?logo=sublime%20text)](https://www.sublimetext.com/)
+
+[![Package Control](https://img.shields.io/packagecontrol/dt/Semantic%20Highlighter)](https://packagecontrol.io/packages/Semantic%20Highlighter)
+
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release)
+
+[![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy%2Fpledges&style=for-the-badge)](https://patreon.com/kapitanluffy)
+
+[![ko-fi](https://img.shields.io/badge/Ko--fi-Support-019cde?logo=ko-fi)](https://ko-fi.com/kapitanluffy)
+
 It underlines variables with the same string (for now).
 Sublime does this by double-clicking a word but why do two if you can do one!
 
@@ -72,7 +82,7 @@ To understand how "scopes" work, check out the following links:
 
 ##### Support
 
-You can always support me via [Patreon](https://www.patreon.com/kapitanluffy)
+You can always support me via [Patreon](https://www.patreon.com/kapitanluffy) or [KoFi](https://www.ko-fi.com/kapitanluffy)
 
 ##### License
 
