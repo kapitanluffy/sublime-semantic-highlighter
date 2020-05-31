@@ -8,7 +8,8 @@
 <a href="https://packagecontrol.io/packages/Semantic%20Highlighter">
     <img src="https://img.shields.io/packagecontrol/dt/Semantic%20Highlighter" /></a>
 
-<img src="https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release" />
+<a href="https://github.com/kapitanluffy/sublime-semantic-highlighter/releases">
+    <img src="https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release" /></a>
 
 <a href="https://patreon.com/kapitanluffy">
     <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy" /></a>
