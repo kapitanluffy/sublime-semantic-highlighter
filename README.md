@@ -2,6 +2,18 @@
 
 🌈 Highlights similar variables on focus
 
+It underlines variables with the same string (for now).
+Sublime does this by double-clicking a word but why do two if you can do one!
+
+> *oooh but that is not "semantic"..* - a wise man
+
+Sure. Here are suggestions for you though.
+
+- Use a different [package](https://github.com/vprimachenko/Sublime-Colorcoder)
+- Modify your color scheme file using Sublime's "[Hashed Syntax Highlighting](https://www.sublimetext.com/docs/3/color_schemes.html#hashed_syntax_highlighting)"
+- use VS Code
+
+<p align="center">
 <a href="https://www.sublimetext.com/">
     <img src="https://img.shields.io/badge/Made%20For-Sublime-ff9800?logo=sublime%20text" /></a>
 
@@ -16,17 +28,7 @@
 
 <a href="https://ko-fi.com/kapitanluffy)">
     <img src="https://img.shields.io/badge/Ko--fi-Support-019cde?logo=ko-fi" /></a>
-
-It underlines variables with the same string (for now).
-Sublime does this by double-clicking a word but why do two if you can do one!
-
-> *oooh but that is not "semantic"..* - a wise man
-
-Sure. Here are suggestions for you though.
-
-- Use a different [package](https://github.com/vprimachenko/Sublime-Colorcoder)
-- Modify your color scheme file using Sublime's "[Hashed Syntax Highlighting](https://www.sublimetext.com/docs/3/color_schemes.html#hashed_syntax_highlighting)"
-- use VS Code
+</p>
 
 ##### Installation
 
