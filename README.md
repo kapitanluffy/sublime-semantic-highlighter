@@ -2,15 +2,19 @@
 
 🌈 Highlights similar variables on focus
 
-[![Sublime Text](https://img.shields.io/badge/Made%20For-Sublime-ff9800?logo=sublime%20text)](https://www.sublimetext.com/)
+<a href="https://www.sublimetext.com/">
+    <img src="https://img.shields.io/badge/Made%20For-Sublime-ff9800?logo=sublime%20text" /></a>
 
-[![Package Control](https://img.shields.io/packagecontrol/dt/Semantic%20Highlighter)](https://packagecontrol.io/packages/Semantic%20Highlighter)
+<a href="https://packagecontrol.io/packages/Semantic%20Highlighter">
+    <img src="https://img.shields.io/packagecontrol/dt/Semantic%20Highlighter" /></a>
 
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release)
+<img src="https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release" />
 
-[![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy)](https://patreon.com/kapitanluffy)
+<a href="https://patreon.com/kapitanluffy">
+    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy" /></a>
 
-[![ko-fi](https://img.shields.io/badge/Ko--fi-Support-019cde?logo=ko-fi)](https://ko-fi.com/kapitanluffy)
+<a href="https://ko-fi.com/kapitanluffy)">
+    <img src="https://img.shields.io/badge/Ko--fi-Support-019cde?logo=ko-fi" /></a>
 
 It underlines variables with the same string (for now).
 Sublime does this by double-clicking a word but why do two if you can do one!
@@ -82,7 +86,7 @@ To understand how "scopes" work, check out the following links:
 
 ##### Support
 
-You can always support me via [Patreon](https://www.patreon.com/kapitanluffy) or [KoFi](https://www.ko-fi.com/kapitanluffy)
+You can always support me via [Patreon](https://www.patreon.com/kapitanluffy) or [Ko-fi](https://www.ko-fi.com/kapitanluffy)
 
 ##### License
 
