@@ -2,7 +2,7 @@
 
 🌈 Highlights similar variables on focus
 
-[![Sublime Text](http://img.shields.io/badge/Made%20for-Sublime%20Text-ff9800?logo=sublime%20text)](https://www.sublimetext.com/)
+[![Sublime Text](https://img.shields.io/badge/Made%20For-Sublime-ff9800?logo=sublime%20text)](https://www.sublimetext.com/)
 
 [![Package Control](https://img.shields.io/packagecontrol/dt/Semantic%20Highlighter)](https://packagecontrol.io/packages/Semantic%20Highlighter)
 
