@@ -1,6 +1,7 @@
 import sublime
 from random import randrange
 
+
 class Highlighter():
     colorVariations = 144
     style = sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
@@ -51,7 +52,6 @@ class Highlighter():
 
     def highlight(self, symbol):
         self.init(symbol)
-        # style = sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
         colors = {}
 
         for key, symbols in self.collection.items():
