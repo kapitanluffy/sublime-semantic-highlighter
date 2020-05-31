@@ -8,7 +8,7 @@
 
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/kapitanluffy/sublime-semantic-highlighter?label=release)
 
-[![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy%2Fpledges&style=for-the-badge)](https://patreon.com/kapitanluffy)
+[![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fkapitanluffy)](https://patreon.com/kapitanluffy)
 
 [![ko-fi](https://img.shields.io/badge/Ko--fi-Support-019cde?logo=ko-fi)](https://ko-fi.com/kapitanluffy)
 
