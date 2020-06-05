@@ -5,30 +5,32 @@ from .analyzers import BlockAnalyzerFactory
 class Symbol():
     view = None
     target = None
+    targetString = None
     blockAnalyzer = None
     instances = []
     block = None
+    blockScope = None
 
     def __init__(self, view, target):
         self.view = view
         self.target = self.view.word(target)   # normalize selection region
+        self.targetString = self.view.substr(self.target).strip()
         self.blockAnalyzer = BlockAnalyzerFactory(self.view)
-        return
 
     def getKey(self):
-        block = self.getBlock()
+        scope = self.getBlockScope()
 
-        if block is False:
+        if scope is False:
             return False
 
-        target = self.getWord()
+        block = self.getBlock()
+
         view = self.view.id()
 
-        key = "%s.%s.%s.%s.%s" % ("plugin.semantic_highlighter", block.a, block.b, target, view)
+        key = "%s.%s.%s.%s.%s" % ("plugin.semantic_highlighter", block.a, block.b, self.targetString, view)
         return key
 
     def getWord(self):
-        # w = self.view.word(self.target)
         return self.view.substr(self.target).strip()
 
     def getRegion(self):
@@ -40,11 +42,15 @@ class Symbol():
 
         return self.block
 
+    def getBlockScope(self):
+        if self.blockScope is None:
+            self.blockScope = self.blockAnalyzer.getBlockScope(self.target)
+
+        return self.blockScope
+
     def getInstances(self):
-        # word = self.view.word(self.target)
         string = self.view.substr(self.target).strip()
         instances = self.view.find_all(string, sublime.LITERAL)
-        # targets = [Symbol(self.view, word)]
         targets = [self]
 
         for instance in instances:
@@ -58,7 +64,8 @@ class Symbol():
                 continue
 
             symbol = Symbol(self.view, instance)
-            if symbol.getBlock() is not False:
+
+            if symbol.getBlockScope() is not False:
                 targets.append(symbol)
 
         return targets

@@ -14,14 +14,15 @@ class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
         if key is False:
             return False
 
-        current = next(filter(lambda s : s.getRegion() == symbol.getRegion(), highlighter.collection[key]))
-        index = highlighter.collection[key].index(current) + 1
+        scopedCollection = list(filter(lambda s : s.getKey() == symbol.getKey(), highlighter.collection))
+        current = next(filter(lambda s : s.getRegion() == symbol.getRegion(), scopedCollection))
+        index = scopedCollection.index(current) + 1
 
-        if index >= len(highlighter.collection[key]):
+        if index >= len(scopedCollection):
             index = 0
 
-        self.view.show_at_center(highlighter.collection[key][index].getRegion())
+        self.view.show_at_center(scopedCollection[index].getRegion())
         self.view.sel().clear()
-        self.view.sel().add(highlighter.collection[key][index].getRegion())
+        self.view.sel().add(scopedCollection[index].getRegion())
 
         return True

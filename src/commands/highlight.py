@@ -1,3 +1,4 @@
+import sublime
 import sublime_plugin
 from ..symbol import Symbol
 from ..highlighter import Highlighter
@@ -35,17 +36,20 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
             highlighter.clear()
 
         symbol = Symbol(self.view, region)
-        block = symbol.getBlock()
+        block = symbol.getBlockScope()
 
         if block is False:
             return
 
-        highlighter.highlight(symbol)
+        sublime.set_timeout_async(highlighter.highlight(symbol))
 
     def initSelection(self):
         """
         Initializes the selection. Mitigates triggering the command twice (when mouse up)
         """
+        if len(self.view.sel()) > 1:
+            return None
+
         if (self.selection is None or self.selection is not self.view.sel()):
             self.selection = self.view.sel()
             return None

@@ -1,12 +1,15 @@
 import sublime
-
+import bisect
 
 class BlockAnalyzer():
-    view = None
     bofmax = 1000
 
-    def __init__(self, view=None):
+    def __init__(self):
+        self.scopes = {}
+
+    def setView(self, view):
         self.view = view
+        self.changeCount = self.view.change_count()
 
     def getBlock(self, region):
         """
@@ -14,7 +17,6 @@ class BlockAnalyzer():
         - Return None if no blocks found (global)
         - Return False if region is not a valid variable
         """
-
         scope = self.getBlockScope(region)
 
         if scope is None:
@@ -30,20 +32,36 @@ class BlockAnalyzer():
 
         return block
 
+    def getScopes(self, scope):
+        if scope not in self.scopes or self.isModified():
+            self.scopes[scope] = self.view.find_by_selector(scope)
+
+        return self.scopes[scope]
+
+    def isModified(self):
+        if self.changeCount < self.view.change_count():
+            self.changeCount = self.view.change_count()
+            return True
+
+        return False
+
     def analyze(self, region, scope):
         """
         Scan previous characters starting from the target region
         to check if it matches the provided scope
         """
+        blocks = self.getScopes(scope)
+        result = bisect.bisect(blocks, region)
+        return blocks[result-1]
+
+    def tokenizedSearch(self, region, scope):
+        # bruteforce block search
         line = self.getLine(region)
         bofmax = self.bofmax
 
         while True:
-            # print("line: %s" % (self.view.substr(line)))
             tokens = self.tokenize(line)
-            # print("tokens: %s" % (tokens))
             for token in tokens:
-                # print("token: %s" % (self.view.substr(token)))
                 if (self.view.match_selector(token.a, scope)):
                     return token
 
@@ -57,6 +75,17 @@ class BlockAnalyzer():
                 raise Exception("getBlock() overflow? break!")
 
         return False
+
+    def getNearestBlock(self, region, blocks):
+        nearest = None
+
+        for block in blocks:
+            if block.a <= region.a:
+                nearest = block
+            if block.a > region.a:
+                break
+
+        return nearest
 
     def getPreviousLine(self, line):
         """
@@ -85,7 +114,7 @@ class BlockAnalyzer():
             if self.view.substr(start).strip() != "":
                 tokens.append(start)
 
-            # start to the next character after last word
+            # start to the next character after last word start
             start = sublime.Region(start.b, start.b + 1)
 
         return tokens

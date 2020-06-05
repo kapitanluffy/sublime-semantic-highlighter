@@ -14,7 +14,13 @@ class SemanticHighlighterEditCommand(sublime_plugin.TextCommand):
         if key is False:
             return False
 
-        for index, symbol in enumerate(highlighter.collection[key]):
-            self.view.sel().add_all([symbol.getRegion()])
+        regions = []
+
+        for s in highlighter.collection:
+            if s.getKey() != key:
+                continue
+            regions.append(s.getRegion())
+
+        self.view.sel().add_all(regions)
 
         return True

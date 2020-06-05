@@ -7,36 +7,18 @@ class Highlighter():
     style = sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
 
     def __init__(self, view, symbol=None):
-        self.collection = {}
+        self.collection = []
         self.symbol = None
         self.view = view
+        self.regions = {}
+        self.colors = {}
 
         if symbol is not None:
             self.init(symbol)
 
     def init(self, symbol):
         self.symbol = symbol
-        instances = symbol.getInstances()
-        blocks = {}
-
-        # group all symbol instances by blocks
-        for s in instances:
-            if s.view.id() != self.view.id():
-                raise Exception("Invalid view id")
-
-            key = s.getKey()
-
-            if key is False:
-                continue
-
-            if key not in blocks:
-                blocks[key] = []
-
-            blocks[key].append(s)
-
-        for key, block in blocks.items():
-            # print("key:", self.view.id(), key)
-            self.collection[key] = block
+        self.collection = symbol.getInstances()
 
     def setStyle(key):
         styles = {
@@ -50,23 +32,33 @@ class Highlighter():
 
         Highlighter.style = styles[key]
 
+    def highlightSymbol(self, symbol):
+        key = symbol.getKey()
+
+        if key not in self.colors:
+            self.colors[key] = self.getColor()
+
+        if key not in self.regions:
+            self.regions[key] = []
+
+        self.regions[key].append(symbol.getRegion())
+        color = 'plugin.semantic_highlighter.color%s' % (self.colors[key])
+        self.view.add_regions(key, self.regions[key],  color, "", Highlighter.style)
+
     def highlight(self, symbol):
         self.init(symbol)
-        colors = {}
+        self.colors = {}
+        self.regions = {}
 
-        for key, symbols in self.collection.items():
-            if key not in colors:
-                colors[key] = self.getColor()
-
-            color = 'plugin.semantic_highlighter.color%s' % (colors[key])
-
-            regions = list(map(lambda s: s.getRegion(), symbols))
-            self.view.add_regions(key, regions,  color, "", Highlighter.style)
+        for s in self.collection:
+            sublime.set_timeout_async(self.highlightSymbol(s))
 
     def clear(self):
-        for key, symbol in self.collection.items():
-            # print("clear:", self.view.id(), key)
-            self.view.erase_regions(key)
+        for symbol in self.collection:
+            key = symbol.getKey()
+
+            if key is not False:
+                self.view.erase_regions(key)
 
         self.collection.clear()
         self.symbol = None
@@ -83,7 +75,6 @@ class Highlighter():
         if self.symbol is None:
             return False
 
-        # print("?", word, self.symbol.getWord(), (word == self.symbol.getWord()))
         return word == self.symbol.getWord()
 
     def getColor(self):
