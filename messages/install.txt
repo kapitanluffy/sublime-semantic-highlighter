@@ -14,18 +14,21 @@ Support us here:
 - https://patreon.com/kapitanluffy
 - https://ko-fi.com/kapitanluffy
 
+Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
+
+v2.0.0
+    - Improve highlight speed using binary search
+    - Improve highlight speed by doing async calls
+    - Prevent highlight on multiple carets for now
+    - Cleanup code from nasty comments
 
 v1.0.3
-    Changes:
     - Remove previous color schemes
 
 v1.0.2
-    Bugfixes:
     - Fix cannot load template resource
     - Fix cannot create highlighter theme from tmtheme files
 
 v1.0.1
-    Bugfixes:
     - Remove test feature unfolding hidden block scopes
-    Others:
     - Add a cute rainbow emoji in the package description
