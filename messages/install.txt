@@ -16,6 +16,9 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.1.0
+    - Simplify generic analyzer
+
 v2.0.0
     - Improve highlight speed using binary search
     - Improve highlight speed by doing async calls
