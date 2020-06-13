@@ -16,6 +16,9 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.2.0
+    - Add javascript analyzer
+
 v2.1.0
     - Simplify generic analyzer
 
