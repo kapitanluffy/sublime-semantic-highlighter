@@ -60,6 +60,9 @@ class Highlighter():
             if key is not False:
                 self.view.erase_regions(key)
 
+        for key in self.regions.keys():
+            self.view.erase_regions(key)
+
         self.collection.clear()
         self.symbol = None
 
