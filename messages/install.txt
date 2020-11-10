@@ -16,6 +16,11 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.2.1
+    - Fix issue #4 (Does not highlight word under cursor for every char)
+    - Fix highlights not clearing while typing
+    - Fix color-scheme file not found when removing
+
 v2.2.0
     - Add javascript analyzer
 
