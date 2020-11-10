@@ -87,6 +87,7 @@ To understand how "scopes" work, check out the following links:
 - Python
 - PHP
 - Javascript
+- Vue
 
 ##### Support
 

@@ -1,8 +1,8 @@
 from .block_analyzer import BlockAnalyzer
 
 
-class PhpAnalyzer(BlockAnalyzer):
-    syntax = 'php'
+class VueComponentAnalyzer(BlockAnalyzer):
+    syntax = 'vue_component'
 
     def getClassScope(self):
         return 'meta.class entity.name.class'
@@ -11,7 +11,7 @@ class PhpAnalyzer(BlockAnalyzer):
         return 'meta.function entity.name.function'
 
     def getGenericScope(self):
-        return 'meta.block punctuation.section.block.begin | meta.embedded.block punctuation.section.block.begin'
+        return 'meta.block'
 
     def getBlockScope(self, region):
         """
@@ -19,6 +19,15 @@ class PhpAnalyzer(BlockAnalyzer):
         - Return None if symbol is a valid variable but no blocks found (global)
         - Return False if symbol is not a valid variable
         """
+
+        if super().matches(region, 'meta.mapping.key'):
+            return None
+
+        if super().matches(region, 'meta.property.object'):
+            return None
+
+        if super().matches(region, 'variable.parameter'):
+            return 'meta.function.declaration entity.name.function'
 
         # global constant inside a class method
         if super().matches(region, 'meta.class meta.function constant.other - constant.other.class'):
@@ -34,15 +43,15 @@ class PhpAnalyzer(BlockAnalyzer):
 
         # function variable
         if super().matches(region, 'meta.function variable.other - variable.other.member'):
-            return 'meta.function.closure | meta.function entity.name.function'
+            return self.getFunctionScope()
+
+        # function parameters
+        if super().matches(region, 'meta.function meta.function-call variable.function'):
+            return self.getFunctionScope()
 
         # function parameters
         if super().matches(region, 'meta.function.parameters variable.parameter'):
-            return 'meta.function.closure | meta.function entity.name.function'
-
-        # closures?
-        if super().matches(region, 'meta.function.closure.use variable.parameter'):
-            return 'meta.function.closure'
+            return self.getFunctionScope()
 
         # class property inside method
         if super().matches(region, 'meta.class variable.other.member'):
@@ -56,15 +65,10 @@ class PhpAnalyzer(BlockAnalyzer):
         if super().matches(region, 'meta.class meta.block constant.other'):
             return self.getClassScope()
 
-        # class variable?
-        if super().matches(region, 'variable.other.class'):
-            return self.getClassScope()
+        if super().matches(region, 'constant.language'):
+            return False
 
-        # class constant?
-        if super().matches(region, 'constant.other.class'):
-            return self.getClassScope()
-
-        if super().matches(region, 'variable.other | constant.other'):
+        if super().matches(region, '(variable | constant) - variable.function'):
             return None
 
         return False

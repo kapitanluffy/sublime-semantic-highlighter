@@ -16,6 +16,10 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.3.0
+    - Add Vue analyzer
+    - Improve PHP analyzer in detecting closures
+
 v2.2.2
     - Fix issue #4 (Breaks native undo implementation of Sublime Text)
 
