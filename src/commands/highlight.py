@@ -42,18 +42,19 @@ class SemanticHighlighterHighlightCommand(sublime_plugin.TextCommand):
             return
 
         sublime.set_timeout_async(highlighter.highlight(symbol))
+        self.selection = None
 
     def initSelection(self):
         """
         Initializes the selection. Mitigates triggering the command twice (when mouse up)
+        @see https://github.com/sublimehq/sublime_text/issues/1254
         """
         if len(self.view.sel()) > 1:
             return None
 
+        # capture selection if empty and selection is not the same
         if (self.selection is None or self.selection is not self.view.sel()):
             self.selection = self.view.sel()
             return None
 
-        selection = self.selection
-        self.selection = None
-        return selection
+        return self.selection
