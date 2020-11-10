@@ -16,6 +16,9 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.2.2
+    - Fix issue #4 (Breaks native undo implementation of Sublime Text)
+
 v2.2.1
     - Fix issue #4 (Does not highlight word under cursor for every char)
     - Fix highlights not clearing while typing

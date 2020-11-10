@@ -86,6 +86,7 @@ To understand how "scopes" work, check out the following links:
 - A generic *fallback* analyzer
 - Python
 - PHP
+- Javascript
 
 ##### Support
 
