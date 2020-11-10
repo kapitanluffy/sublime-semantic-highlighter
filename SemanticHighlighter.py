@@ -16,6 +16,20 @@ def update_plugin_settings():
     Highlighter.setStyle(settings.get('style', 'underline'))
 
 
+def remove_generated_color_schemes(plugindir):
+    colorSchemes = sublime.find_resources('*.sublime-color-scheme')
+
+    for colorScheme in colorSchemes:
+        match = re.match('Packages/Semantic Highlighter/(.+\.sublime-color-scheme)', colorScheme)
+
+        if match is not None:
+            f = os.path.join(plugindir, match.group(1))
+
+            if os.path.exists(f):
+                print("Remove color scheme", f)
+                os.remove(f)
+
+
 def update_preferences():
     """
     Watch for color_scheme changes
@@ -38,11 +52,7 @@ def update_preferences():
     if os.path.exists(filename):
         return
 
-    for colorScheme in sublime.find_resources('*.sublime-color-scheme'):
-        match = re.match('Packages/Semantic Highlighter/(.+\.sublime-color-scheme)', colorScheme)
-        if match is not None:
-            os.remove(os.path.join(plugindir, match.group(1)))
-
+    remove_generated_color_schemes(plugindir)
     template = sublime.load_resource('Packages/Semantic Highlighter/Template.hidden-color-scheme')
     file = open(filename, "w+")
     file.write(template)
