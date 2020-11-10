@@ -16,6 +16,9 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.3.1
+    - Fix jump and edit commands not working
+
 v2.3.0
     - Add Vue analyzer
     - Improve PHP analyzer in detecting closures

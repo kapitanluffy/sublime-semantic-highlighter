@@ -1,13 +1,13 @@
 import sublime_plugin
 
-from .highlight import SemanticHighlighterHighlightCommand
+from ..listeners.view_event import SemanticHighlighterViewEventListener
 from ..symbol import Symbol
 
 
 class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         selection = self.view.sel()[-1]
-        highlighter = SemanticHighlighterHighlightCommand.getHighlighter(self.view)
+        highlighter = SemanticHighlighterViewEventListener.getHighlighter(self.view)
         symbol = Symbol(self.view, selection)
         key = symbol.getKey()
 
