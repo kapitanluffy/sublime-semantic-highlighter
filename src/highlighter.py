@@ -20,6 +20,7 @@ class Highlighter():
         self.symbol = symbol
         self.collection = symbol.getInstances()
 
+    @staticmethod
     def setStyle(key):
         styles = {
             'outline': sublime.DRAW_NO_FILL,
@@ -35,6 +36,9 @@ class Highlighter():
     def highlightSymbol(self, symbol):
         key = symbol.getKey()
 
+        if key is False or key is None:
+            return
+
         if key not in self.colors:
             self.colors[key] = self.getColor()
 
@@ -43,7 +47,7 @@ class Highlighter():
 
         self.regions[key].append(symbol.getRegion())
         color = 'plugin.semantic_highlighter.color%s' % (self.colors[key])
-        self.view.add_regions(key, self.regions[key],  color, "", Highlighter.style)
+        self.view.add_regions(key, self.regions[key], color, "", Highlighter.style)
 
     def highlight(self, symbol):
         self.init(symbol)
@@ -63,7 +67,6 @@ class Highlighter():
         for key in self.regions.keys():
             self.view.erase_regions(key)
 
-        self.collection.clear()
         self.symbol = None
 
     def isEmpty(self):
@@ -78,7 +81,14 @@ class Highlighter():
         if self.symbol is None:
             return False
 
-        return word == self.symbol.getWord()
+        if word != self.symbol.getWord():
+            return False
+
+        for s in self.collection:
+            if s.getKey() is self.symbol.getKey():
+                return self.symbol
+
+        return False
 
     def getColor(self):
         """
