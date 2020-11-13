@@ -51,7 +51,6 @@ class Highlighter():
 
     def highlight(self, symbol):
         self.init(symbol)
-        self.colors = {}
         self.regions = {}
 
         for s in self.collection:
