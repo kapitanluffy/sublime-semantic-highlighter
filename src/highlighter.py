@@ -20,7 +20,8 @@ class Highlighter():
         self.symbol = symbol
         self.collection = symbol.getInstances()
 
-    def setStyle(self, key):
+    @staticmethod
+    def setStyle(key):
         styles = {
             'outline': sublime.DRAW_NO_FILL,
             'fill': sublime.DRAW_NO_OUTLINE,
