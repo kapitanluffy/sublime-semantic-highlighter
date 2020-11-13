@@ -25,6 +25,9 @@ class Symbol():
 
         block = self.getBlock()
 
+        if block is False:
+            return False
+
         view = self.view.id()
 
         key = "%s.%s.%s.%s.%s" % ("plugin.semantic_highlighter", block.a, block.b, self.targetString, view)

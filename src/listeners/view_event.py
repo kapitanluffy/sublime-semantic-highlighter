@@ -2,6 +2,25 @@ import sublime
 import sublime_plugin
 from ..symbol import Symbol
 from ..highlighter import Highlighter
+from threading import Timer
+
+
+def debounce(wait):
+    """ Decorator that will postpone a functions
+        execution until after wait seconds
+        have elapsed since the last time it was invoked. """
+    def decorator(fn):
+        def debounced(*args, **kwargs):
+            def call_it():
+                fn(*args, **kwargs)
+            try:
+                debounced.t.cancel()
+            except(AttributeError):
+                pass
+            debounced.t = Timer(wait, call_it)
+            debounced.t.start()
+        return debounced
+    return decorator
 
 
 class SemanticHighlighterViewEventListener(sublime_plugin.ViewEventListener):
@@ -17,44 +36,26 @@ class SemanticHighlighterViewEventListener(sublime_plugin.ViewEventListener):
         return cls.views[viewId]
 
     def on_selection_modified_async(self):
-        self.highlight()
-
-    def highlight(self):
-        selection = self.initSelection()
-
-        if (selection is None):
-            return
-
-        # only use the last selection
+        selection = self.view.sel()
         region = selection[-1]
+
+        self.highlight(region)
+
+    @debounce(0.25)
+    def highlight(self, region):
         highlighter = SemanticHighlighterViewEventListener.getHighlighter(self.view)
+        symbol = highlighter.isHighlighted(region)
 
-        if highlighter.isHighlighted(region) is True:
-            return
-
+        # make sure there are no highlights if highlighter is empty
         if highlighter.isEmpty() is False:
             highlighter.clear()
 
-        symbol = Symbol(self.view, region)
-        block = symbol.getBlockScope()
+        if symbol is False:
+            symbol = Symbol(self.view, region)
 
+        block = symbol.getBlockScope()
         if block is False:
             return
 
         sublime.set_timeout_async(highlighter.highlight(symbol))
         self.selection = None
-
-    def initSelection(self):
-        """
-        Initializes the selection. Mitigates triggering the command twice (when mouse up)
-        @see https://github.com/sublimehq/sublime_text/issues/1254
-        """
-        if len(self.view.sel()) > 1:
-            return None
-
-        # capture selection if empty and selection is not the same
-        if (self.selection is None or self.selection is not self.view.sel()):
-            self.selection = self.view.sel()
-            return None
-
-        return self.selection
