@@ -16,6 +16,11 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.4.0
+    - Reuse highlighted symbol color
+    - Debounce highlighting to multiple on_selection_modified event calls (issue #3)
+    - Fix false block error (issue #5)
+
 v2.3.1
     - Fix jump and edit commands not working
 
