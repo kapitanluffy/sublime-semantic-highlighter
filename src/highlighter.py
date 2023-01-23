@@ -75,7 +75,7 @@ class Highlighter():
         if len(self.collection) <= 0:
             return False
 
-        word = self.view.substr(self.view.word(target)).strip()
+        word = self.view.substr(self.view.word(target.a)).strip()
 
         if self.symbol is None:
             return False

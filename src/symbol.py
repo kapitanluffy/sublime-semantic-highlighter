@@ -13,7 +13,7 @@ class Symbol():
 
     def __init__(self, view, target):
         self.view = view
-        self.target = self.view.word(target)   # normalize selection region
+        self.target = self.view.word(target.a)   # normalize selection region
         self.targetString = self.view.substr(self.target).strip()
         self.blockAnalyzer = BlockAnalyzerFactory(self.view)
 
