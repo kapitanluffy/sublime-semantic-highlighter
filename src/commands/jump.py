@@ -5,6 +5,8 @@ from ..symbol import Symbol
 
 
 class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
+    scopedCollection = None
+
     def run(self, edit):
         selection = self.view.sel()[-1]
         highlighter = SemanticHighlighterViewEventListener.getHighlighter(self.view)
@@ -14,7 +16,10 @@ class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
         if key is False:
             return False
 
-        scopedCollection = list(filter(lambda s : s.getKey() == symbol.getKey(), highlighter.collection))
+        if SemanticHighlighterJumpCommand.scopedCollection is None:
+            SemanticHighlighterJumpCommand.scopedCollection = list(filter(lambda s : s.getKey() == symbol.getKey(), highlighter.collection))
+
+        scopedCollection = SemanticHighlighterJumpCommand.scopedCollection
         current = next(filter(lambda s : s.getRegion() == symbol.getRegion(), scopedCollection))
         index = scopedCollection.index(current) + 1
 
