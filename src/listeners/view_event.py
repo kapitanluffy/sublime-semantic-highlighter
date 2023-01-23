@@ -1,6 +1,6 @@
 import sublime
 import sublime_plugin
-from ..symbol import Symbol
+from ..syntax_symbol import SyntaxSymbol
 from ..highlighter import Highlighter
 from threading import Timer
 
@@ -49,7 +49,7 @@ class SemanticHighlighterViewEventListener(sublime_plugin.ViewEventListener):
             highlighter.clear()
 
         if symbol is False:
-            symbol = Symbol(self.view, region)
+            symbol = SyntaxSymbol(self.view, region)
 
         block = symbol.getBlockScope()
         if block is False:

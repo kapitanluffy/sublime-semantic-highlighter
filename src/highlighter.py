@@ -3,7 +3,8 @@ from random import randrange
 
 
 class Highlighter():
-    colorVariations = 144
+    # colorVariations = 144
+    colorVariations = 36
     style = sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
 
     def __init__(self, view, symbol=None):
@@ -18,14 +19,15 @@ class Highlighter():
 
     def init(self, symbol):
         self.symbol = symbol
-        self.collection = symbol.getInstances()
+        self.collection = self.symbol.getInstances()
 
     @staticmethod
     def setStyle(key):
         styles = {
             'outline': sublime.DRAW_NO_FILL,
             'fill': sublime.DRAW_NO_OUTLINE,
-            'underline': sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE
+            'underline': sublime.DRAW_NO_FILL | sublime.DRAW_NO_OUTLINE | sublime.DRAW_SOLID_UNDERLINE,
+            'foreground': 0
         }
 
         if key not in styles:
@@ -49,6 +51,10 @@ class Highlighter():
 
     def highlightSymbol(self, key):
         color = 'plugin.semantic_highlighter.color%s' % (self.colors[key])
+
+        if Highlighter.style == 0: # foreground
+            color = 'plugin.semantic_highlighter.foreground.color%s' % (self.colors[key])
+
         self.view.add_regions(key, self.regions[key], color, "", Highlighter.style)
 
     def highlight(self, symbol):
@@ -68,6 +74,7 @@ class Highlighter():
             if key is not False:
                 self.view.erase_regions(key)
 
+        # remove all keys for now
         for key in self.regions.keys():
             self.view.erase_regions(key)
 

@@ -2,7 +2,7 @@ import sublime
 from .analyzers import BlockAnalyzerFactory
 
 
-class Symbol():
+class SyntaxSymbol():
     view = None
     target = None
     targetString = None
@@ -51,6 +51,10 @@ class Symbol():
 
         return self.blockScope
 
+    def getPrimaryInstance(self):
+        return self
+
+    # @todo move to block analyzer
     def getInstances(self):
         string = self.view.substr(self.target).strip()
         instances = self.view.find_all(string, sublime.LITERAL)
@@ -66,7 +70,7 @@ class Symbol():
             if (s != string):
                 continue
 
-            symbol = Symbol(self.view, instance)
+            symbol = SyntaxSymbol(self.view, instance)
 
             if symbol.getBlockScope() is not False:
                 targets.append(symbol)
