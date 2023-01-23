@@ -33,7 +33,7 @@ class Highlighter():
 
         Highlighter.style = styles[key]
 
-    def highlightSymbol(self, symbol):
+    def groupSymbolsByScope(self, symbol):
         key = symbol.getKey()
 
         if key is False or key is None:
@@ -46,6 +46,8 @@ class Highlighter():
             self.regions[key] = []
 
         self.regions[key].append(symbol.getRegion())
+
+    def highlightSymbol(self, key):
         color = 'plugin.semantic_highlighter.color%s' % (self.colors[key])
         self.view.add_regions(key, self.regions[key], color, "", Highlighter.style)
 
@@ -54,7 +56,10 @@ class Highlighter():
         self.regions = {}
 
         for s in self.collection:
-            sublime.set_timeout_async(self.highlightSymbol(s))
+            self.groupSymbolsByScope(s)
+
+        for k in self.regions.keys():
+            self.highlightSymbol(k)
 
     def clear(self):
         for symbol in self.collection:
