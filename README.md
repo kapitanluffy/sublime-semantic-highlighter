@@ -91,7 +91,7 @@ To understand how "scopes" work, check out the following links:
 
 ##### Support
 
-You can always support me via [Patreon](https://www.patreon.com/kapitanluffy) or [Ko-fi](https://www.ko-fi.com/kapitanluffy)
+You can always support me via [Github Sponsors](https://github.com/sponsors/kapitanluffy), [Patreon](https://www.patreon.com/kapitanluffy) or [Ko-fi](https://www.ko-fi.com/kapitanluffy)
 
 ##### License
 

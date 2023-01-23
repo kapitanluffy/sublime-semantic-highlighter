@@ -11,50 +11,46 @@ Help us create an analyzer for your language!
 https://github.com/kapitanluffy/sublime-semantic-highlighter#creating-a-custom-analyzer
 
 Support us here:
+- https://github.com/sponsors/kapitanluffy
 - https://patreon.com/kapitanluffy
 - https://ko-fi.com/kapitanluffy
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
-v2.4.0
+v2.5
+    - Add highlight delay
+    - Cleanup some unused code and rename Symbol to SyntaxSymbol
+    - Fix blinking highlight bug
+    - Fix jump command not working properly
+    - Fix highlight issue when selecting multiple characters
+
+v2.4
     - Reuse highlighted symbol color
     - Debounce highlighting to multiple on_selection_modified event calls (issue #3)
     - Fix false block error (issue #5)
 
-v2.3.1
+v2.3
     - Fix jump and edit commands not working
-
-v2.3.0
     - Add Vue analyzer
     - Improve PHP analyzer in detecting closures
 
-v2.2.2
+v2.2
     - Fix issue #4 (Breaks native undo implementation of Sublime Text)
-
-v2.2.1
     - Fix issue #4 (Does not highlight word under cursor for every char)
     - Fix highlights not clearing while typing
     - Fix color-scheme file not found when removing
-
-v2.2.0
     - Add javascript analyzer
-
-v2.1.0
     - Simplify generic analyzer
 
-v2.0.0
+v2.0
     - Improve highlight speed using binary search
     - Improve highlight speed by doing async calls
     - Prevent highlight on multiple carets for now
     - Cleanup code from nasty comments
 
-v1.0.3
+v1.x
     - Remove previous color schemes
-
-v1.0.2
     - Fix cannot load template resource
     - Fix cannot create highlighter theme from tmtheme files
-
-v1.0.1
     - Remove test feature unfolding hidden block scopes
     - Add a cute rainbow emoji in the package description
