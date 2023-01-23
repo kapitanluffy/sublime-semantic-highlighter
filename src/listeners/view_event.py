@@ -4,27 +4,25 @@ from ..symbol import Symbol
 from ..highlighter import Highlighter
 from threading import Timer
 
-
-def debounce(wait):
+def debounce(fn):
     """ Decorator that will postpone a functions
         execution until after wait seconds
         have elapsed since the last time it was invoked. """
-    def decorator(fn):
-        def debounced(*args, **kwargs):
-            def call_it():
-                fn(*args, **kwargs)
-            try:
-                debounced.t.cancel()
-            except(AttributeError):
-                pass
-            debounced.t = Timer(wait, call_it)
-            debounced.t.start()
-        return debounced
-    return decorator
-
+    def debounced(*args, **kwargs):
+        def call_it():
+            fn(*args, **kwargs)
+        try:
+            debounced.t.cancel()
+        except(AttributeError):
+            pass
+        delay = SemanticHighlighterViewEventListener.delay or 0.25
+        debounced.t = Timer(delay, call_it)
+        debounced.t.start()
+    return debounced
 
 class SemanticHighlighterViewEventListener(sublime_plugin.ViewEventListener):
     selection = None
+    delay = None
     views = {}
 
     @classmethod
@@ -41,7 +39,7 @@ class SemanticHighlighterViewEventListener(sublime_plugin.ViewEventListener):
 
         self.highlight(region)
 
-    @debounce(0.25)
+    @debounce
     def highlight(self, region):
         highlighter = SemanticHighlighterViewEventListener.getHighlighter(self.view)
         symbol = highlighter.isHighlighted(region)

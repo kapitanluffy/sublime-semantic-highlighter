@@ -1,4 +1,7 @@
 {
-    // Valid values are: underline, outline, fill
+    // Highlight style - valid values are: underline, outline, fill
     "style": "underline",
+
+    // Highlight delay
+    "delay": 0.25,
 }

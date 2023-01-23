@@ -14,6 +14,7 @@ def update_plugin_settings():
     """
     settings = sublime.load_settings('SemanticHighlighter.sublime-settings')
     Highlighter.setStyle(settings.get('style', 'underline'))
+    SemanticHighlighterViewEventListener.delay = settings.get('delay', 0.25)
 
 
 def remove_generated_color_schemes(plugindir):
