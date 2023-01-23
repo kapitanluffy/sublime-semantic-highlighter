@@ -1,7 +1,6 @@
 import sublime
 import os
 import re
-from .src.commands.highlight import SemanticHighlighterHighlightCommand
 from .src.commands.edit import SemanticHighlighterEditCommand
 from .src.commands.jump import SemanticHighlighterJumpCommand
 from .src.listeners.view_event import SemanticHighlighterViewEventListener
@@ -81,7 +80,6 @@ def plugin_unloaded():
 
 
 __all__ = [
-    'SemanticHighlighterHighlightCommand',
     'SemanticHighlighterEditCommand',
     'SemanticHighlighterJumpCommand',
     'SemanticHighlighterViewEventListener'
