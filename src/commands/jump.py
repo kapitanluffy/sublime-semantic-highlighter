@@ -6,6 +6,7 @@ from ..syntax_symbol import SyntaxSymbol
 
 class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
     scopedCollection = None
+    symbol = None
 
     def run(self, edit):
         selection = self.view.sel()[-1]
@@ -16,11 +17,14 @@ class SemanticHighlighterJumpCommand(sublime_plugin.TextCommand):
         if key is False:
             return False
 
-        if SemanticHighlighterJumpCommand.scopedCollection is None:
+        if SemanticHighlighterJumpCommand.scopedCollection is None or SemanticHighlighterJumpCommand.symbol is None or SemanticHighlighterJumpCommand.symbol != symbol.getKey():
             SemanticHighlighterJumpCommand.scopedCollection = list(filter(lambda s : s.getKey() == symbol.getKey(), highlighter.collection))
 
+        SemanticHighlighterJumpCommand.symbol = symbol.getKey()
         scopedCollection = SemanticHighlighterJumpCommand.scopedCollection
-        current = next(filter(lambda s : s.getRegion() == symbol.getRegion(), scopedCollection))
+        jumpableScopes = list(filter(lambda s : s.getRegion() == symbol.getRegion(), scopedCollection));
+
+        current = jumpableScopes[0]
         index = scopedCollection.index(current) + 1
 
         if index >= len(scopedCollection):

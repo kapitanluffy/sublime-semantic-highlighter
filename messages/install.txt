@@ -17,6 +17,9 @@ Support us here:
 
 Also, thanks to the awesome people on Discord in helping me build this 🎉🎉🎉
 
+v2.5.1
+    - Fix jump command not going back to first symbol
+
 v2.5
     - Add highlight delay
     - Cleanup some unused code and rename Symbol to SyntaxSymbol
